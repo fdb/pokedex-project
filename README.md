@@ -6,7 +6,7 @@ to complete this project:
     * you can also test your functions by calling them through the API in the main `index.js` file
 
 To use the API (after cloning and installing):
-* `node index.js`
+* `npm run dev`
 * open Postman or a similar app
 * go to `localhost:xxxx/` for API documentation
 * explore!
