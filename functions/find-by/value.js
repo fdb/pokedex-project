@@ -15,7 +15,7 @@ module.exports = (pokedex, value) => {
     .filter(pokemon => {
       return Object.keys(pokemon)
         .filter(key => {
-          return pokemon[key] === value;
+          return String(pokemon[key]) === value;
         }).length > 0
     })
 };

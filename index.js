@@ -26,7 +26,12 @@ app.use((req, res, next) => {
 });
 
 app.get('/', (req, res) => {
-  res.json({ message: 'welcome to the pokedex api!  some documentation of existing routes here' });
+  res.json({
+    message: 'welcome to the pokedex api!',
+    routes: app._router.stack // all routes are GET
+      .filter(r => r.route && r.route.path)
+      .map(r => r.route.path)
+  });
 });
 
 app.get('/schema', (req, res) => {
@@ -38,19 +43,38 @@ app.get('/pokedex', (req, res) => {
 });
 
 
-app.get('/entriesWithType/:type', (req, res) => {
+
+app.get('/findBy/keyValue/:key/:value', (req, res) => {
+  console.log(req.params);
+  const key = req.params.key;
+  const value = req.params.value;
+  const result = functions.findBy.keyValue(pokedex, key, value);
+  console.log({ result });
+  res.json(result);
+});
+
+app.get('/findBy/type/:type', (req, res) => {
   console.log(req.params);
   const type = req.params.type;
-  const result = functions.entriesWithType(pokedex, type);
+  const result = functions.findBy.type(pokedex, type);
   console.log({ result });
   res.json(result);
 });
 
 
-app.get('/entriesWithWeakness/:type', (req, res) => {
+app.get('/findBy/value/:value', (req, res) => {
+  console.log(req.params);
+  const value = req.params.value;
+  const result = functions.findBy.value(pokedex, value);
+  console.log({ result });
+  res.json(result);
+});
+
+
+app.get('/findBy/weakness/:type', (req, res) => {
   console.log(req.params);
   const type = req.params.type;
-  const result = functions.entriesWithWeakness(pokedex, type);
+  const result = functions.findBy.weakness(pokedex, type);
   console.log({ result });
   res.json(result);
 });
@@ -64,23 +88,6 @@ app.get('/evolutionsOf/:name', (req, res) => {
   res.json(result);
 });
 
-
-app.get('/findByKeyValue/:key/:value', (req, res) => {
-  console.log(req.params);
-  const key = req.params.key;
-  const value = req.params.value;
-  const result = functions.findByKeyValue(pokedex, key, value);
-  console.log({ result });
-  res.json(result);
-});
-
-app.get('/findByValue/:value', (req, res) => {
-  console.log(req.params);
-  const value = req.params.value;
-  const result = functions.findByValue(pokedex, value);
-  console.log({ result });
-  res.json(result);
-});
 
 app.get('/typeStats/:type', (req, res) => {
   console.log(req.params);

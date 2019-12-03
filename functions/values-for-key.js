@@ -1,5 +1,6 @@
 const assert = require('assert');
 
+// provided as a helper
 const areTheSame = (first, second) => {
   try {
     assert.deepStrictEqual(first, second);
